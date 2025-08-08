@@ -1,3 +1,4 @@
+import traceback
 import os
 import dash
 from dash import dcc, html, Input, Output, callback
@@ -13,6 +14,8 @@ app = dash.Dash(__name__)
 server = app.server
 app.title = "Dashboard de Aprendizaje Automático"
 BASE = os.path.dirname(__file__)
+print("BASE:", BASE)
+print("Archivos en BASE:", os.listdir(BASE))
 print("🔄 Cargando modelos...")
 
 # -----------------------
@@ -21,30 +24,34 @@ print("🔄 Cargando modelos...")
 try:
     modelo_regresion = joblib.load(os.path.join(BASE, "RegresionSa.pkl"))
     print("✅ Modelo de regresión cargado")
-except:
-    print("❌ Error cargando modelo de regresión")
+except Exception as e:
+    print("❌ Error cargando modelo de regresión", e)
+    traceback.print_exc()
     modelo_regresion = None
 
 try:
     modelo_clasificacion = joblib.load(os.path.join(BASE, "ClasificacionDe.pkl"))
     print("✅ Modelo de clasificación cargado")
-except:
-    print("❌ Error cargando modelo de clasificación")
+except Exception as e:
+    print("❌ Error cargando modelo de clasificación", e)
+    traceback.print_exc()
     modelo_clasificacion = None
 
 try:
     modelo_agrupamiento = joblib.load(os.path.join(BASE, "AgrupamientoSa.pkl"))
     print("✅ Modelo de agrupamiento cargado")
-except:
-    print("❌ Error cargando modelo de agrupamiento")
+except Exception as e:
+    print("❌ Error cargando modelo de agrupamiento", e)
+    traceback.print_exc()
     modelo_agrupamiento = None
 
 try:
     label_encoders = joblib.load(os.path.join(BASE, "label_encoders.pkl"))
     income_encoder = joblib.load(os.path.join(BASE, "income_encoder.pkl"))
     print("✅ Encoders cargados")
-except:
-    print("❌ Error cargando encoders")
+except Exception as e:
+    print("❌ Error cargando encoders", e)
+    traceback.print_exc()
     label_encoders = None
     income_encoder = None
 
